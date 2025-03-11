@@ -1,0 +1,97 @@
+server:
+  port: ${SERVER_PORT:9999}
+  servlet:
+    context-path: /
+  shutdown: GRACEFUL
+
+spring:
+  profiles:
+    active: dev
+  lifecycle:
+    timeout-per-shutdown-phase: 10s
+  main:
+    banner-mode: CONSOLE
+#    allow-bean-definition-overriding: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  mvc:
+    path match:
+      matching-strategy: ant_path_matcher
+  datasource:
+    url: jdbc:mysql://${mysql.vip:192.168.1.114}:${mysql.serverport:3306}/lottery?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&allowMultiQueries=true
+    username: ${mysql.username:mysql}
+    password: ${mysql.password:mysql}
+    driverClassName: com.mysql.cj.jdbc.Driver
+    hikari:
+      dataSourceProperties:
+        # https://github.com/brettwooldridge/HikariCP/wiki/MySQL-Configuration
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+        useLocalSessionState: true # 是否从本地获取 connection 的只读属性， false 时会产生大量 select @@session.tx_read_only
+        rewriteBatchedStatements: true # 优化批量语句
+        cacheResultSetMetadata: true
+        cacheServerConfiguration: true
+        elideSetAutoCommits: true
+        maintainTimeStats: true
+      maximum-pool-size: 10
+      connection-timeout: 30000
+      max-lifetime: 480000 # 8min
+      keepaliveTime: 60000
+
+springdoc:
+  api-docs:
+    path: /lottery/swagger/v3/api-docs
+  swagger-ui:
+    path: /lottery/swagger-ui.html
+    #base-path: /lottery
+    operationsSorter: alpha
+    tagsSorter: alpha
+    displayOperationId: true
+    disable-swagger-default-url: true
+    queryConfigEnabled: true
+    csrf:
+      enabled: false
+mybatis:
+  mapper-locations: mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+logging:
+  level:
+    io.lottery.mapper: debug
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+win:
+  endpoint:
+    lottery: ${WIN_ENDPOINT_LOTTERY:http://www.cwl.gov.cn}
+
+management:
+  server:
+    # actuator port
+    port: ${MANAGEMENT_PORT:9998}
+    health:
+      livenessstate:
+        enabled: true
+      readinessstate:
+        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
+      probes:
+        enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
+feign:
+  okhttp:
+    enabled: true
+  httpclient:
+    enabled: false

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.lottery.mapper.Kl8BonusDetailMapper">
+  <resultMap id="BaseResultMap" type="io.lottery.entity.Kl8BonusDetailEntity">
+    <id column="id" jdbcType="CHAR" property="id" />
+    <result column="code" jdbcType="CHAR" property="code" />
+    <result column="type" jdbcType="CHAR" property="type" />
+    <result column="type_num" jdbcType="INTEGER" property="typeNum" />
+    <result column="type_money" jdbcType="CHAR" property="typeMoney" />
+    <result column="insert_date" jdbcType="TIMESTAMP" property="insertDate" />
+    <result column="game_code" jdbcType="CHAR" property="gameCode" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from kl8_bonus_detail
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+
+  <insert id="insert" parameterType="io.lottery.entity.Kl8BonusDetailEntity">
+    insert into kl8_bonus_detail (id, code, type, type_num,
+    type_money, insert_date, game_code
+    )
+    values
+    <foreach collection="kl8PrizeGradesList" item="item" separator=",">
+      (#{id,jdbcType=CHAR}, #{code,jdbcType=CHAR}, #{type,jdbcType=CHAR}, #{typeNum,jdbcType=CHAR},
+      #{typeMoney,jdbcType=CHAR}, #{insertDate,jdbcType=TIMESTAMP}, #{gameCode,jdbcType=CHAR}
+      )
+    </foreach>
+
+  </insert>
+
+  <insert id="insertBatch" parameterType="io.lottery.entity.Kl8BonusDetailEntity">
+    insert into kl8_bonus_detail (id, code, type, type_num, 
+      type_money, insert_date, game_code
+      )
+    values
+     <foreach collection="kl8PrizeGradesList" item="item" separator=",">
+       (#{item.id,jdbcType=CHAR}, #{item.code,jdbcType=CHAR}, #{item.type,jdbcType=CHAR}, #{item.typeNum,jdbcType=CHAR},
+       #{item.typeMoney,jdbcType=CHAR}, #{item.insertDate,jdbcType=TIMESTAMP}, #{item.gameCode,jdbcType=CHAR}
+       )
+     </foreach>
+
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="io.lottery.entity.Kl8BonusDetailEntity">
+    update kl8_bonus_detail
+    set code = #{code,jdbcType=CHAR},
+      type = #{type,jdbcType=CHAR},
+      type_num = #{typeNum,jdbcType=CHAR},
+      type_money = #{typeMoney,jdbcType=CHAR},
+      insert_date = #{insertDate,jdbcType=TIMESTAMP},
+      game_code = #{gameCode,jdbcType=CHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select id, code, type, type_num, type_money, insert_date, game_code
+    from kl8_bonus_detail
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, code, type, type_num, type_money, insert_date, game_code
+    from kl8_bonus_detail
+  </select>
+</mapper>

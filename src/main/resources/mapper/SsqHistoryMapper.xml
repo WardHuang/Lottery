@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.lottery.mapper.SsqHistoryMapper">
+  <resultMap id="BaseResultMap" type="io.lottery.entity.SsqHistoryEntity">
+    <id column="code" jdbcType="CHAR" property="code" />
+    <result column="game_code" jdbcType="CHAR" property="gameCode" />
+    <result column="game_name" jdbcType="VARCHAR" property="gameName" />
+    <result column="sales" jdbcType="CHAR" property="sales" />
+    <result column="week" jdbcType="VARCHAR" property="week" />
+    <result column="pool_money" jdbcType="CHAR" property="poolMoney" />
+    <result column="bulletin_date" jdbcType="CHAR" property="bulletinDate" />
+    <result column="red_ball_1" jdbcType="INTEGER" property="redBall1" />
+    <result column="red_ball_2" jdbcType="INTEGER" property="redBall2" />
+    <result column="red_ball_3" jdbcType="INTEGER" property="redBall3" />
+    <result column="red_ball_4" jdbcType="INTEGER" property="redBall4" />
+    <result column="red_ball_5" jdbcType="INTEGER" property="redBall5" />
+    <result column="red_ball_6" jdbcType="INTEGER" property="redBall6" />
+    <result column="blue_ball_1" jdbcType="INTEGER" property="blueBall1" />
+    <result column="blue_ball_2" jdbcType="INTEGER" property="blueBall2" />
+    <result column="insert_date" jdbcType="TIMESTAMP" property="insertDate" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ssq_history
+    where code = #{code,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="io.lottery.entity.SsqHistoryEntity">
+    insert into ssq_history (code, game_code, game_name,
+    sales, week, pool_money,
+    bulletin_date, red_ball_1, red_ball_2,
+    red_ball_3, red_ball_4, red_ball_5,red_ball_6,
+    blue_ball_1, blue_ball_2, insert_date,
+    content)
+    values
+      (#{code,jdbcType=CHAR}, #{gameCode,jdbcType=CHAR}, #{gameName,jdbcType=VARCHAR},
+      #{sales,jdbcType=CHAR}, #{week,jdbcType=VARCHAR}, #{poolMoney,jdbcType=CHAR},
+      #{bulletinDate,jdbcType=CHAR}, #{redBall1,jdbcType=INTEGER}, #{redBall2,jdbcType=INTEGER},
+      #{redBall3,jdbcType=INTEGER}, #{redBall4,jdbcType=INTEGER}, #{redBall5,jdbcType=INTEGER},#{redBall6,jdbcType=INTEGER},
+      #{blueBall1,jdbcType=INTEGER}, #{blueBall2,jdbcType=INTEGER}, #{insertDate,jdbcType=TIMESTAMP},
+      #{content,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertBatch" parameterType="io.lottery.entity.SsqHistoryEntity">
+    insert into ssq_history (code, game_code, game_name, 
+      sales, week, pool_money, 
+      bulletin_date, red_ball_1, red_ball_2, 
+      red_ball_3, red_ball_4, red_ball_5, red_ball_6,
+    blue_ball_1, blue_ball_2, insert_date,
+      content)
+    values
+        <foreach collection="SsqHistoryList" item="item" separator=",">
+          (#{item.code,jdbcType=CHAR}, #{item.gameCode,jdbcType=CHAR}, #{item.gameName,jdbcType=VARCHAR},
+          #{item.sales,jdbcType=CHAR}, #{item.week,jdbcType=VARCHAR}, #{item.poolMoney,jdbcType=CHAR},
+          #{item.bulletinDate,jdbcType=CHAR}, #{item.redBall1,jdbcType=INTEGER}, #{item.redBall2,jdbcType=INTEGER},
+          #{item.redBall3,jdbcType=INTEGER}, #{item.redBall4,jdbcType=INTEGER}, #{item.redBall5,jdbcType=INTEGER},#{item.redBall6,jdbcType=INTEGER},
+          #{item.blueBall1,jdbcType=INTEGER}, #{item.blueBall2,jdbcType=INTEGER}, #{item.insertDate,jdbcType=TIMESTAMP},
+          #{item.content,jdbcType=VARCHAR})
+        </foreach>
+
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="io.lottery.entity.SsqHistoryEntity">
+    update ssq_history
+    set game_code = #{gameCode,jdbcType=CHAR},
+      game_name = #{gameName,jdbcType=VARCHAR},
+      sales = #{sales,jdbcType=CHAR},
+      week = #{week,jdbcType=VARCHAR},
+      pool_money = #{poolMoney,jdbcType=CHAR},
+      bulletin_date = #{bulletinDate,jdbcType=CHAR},
+      red_ball_1 = #{redBall1,jdbcType=INTEGER},
+      red_ball_2 = #{redBall2,jdbcType=INTEGER},
+      red_ball_3 = #{redBall3,jdbcType=INTEGER},
+      red_ball_4 = #{redBall4,jdbcType=INTEGER},
+      red_ball_5 = #{redBall5,jdbcType=INTEGER},
+      red_ball_6 = #{redBall6,jdbcType=INTEGER},
+      blue_ball_1 = #{blueBall1,jdbcType=INTEGER},
+      blue_ball_2 = #{blueBall2,jdbcType=INTEGER},
+      insert_date = #{insertDate,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=VARCHAR}
+    where code = #{code,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select code, game_code, game_name, sales, week, pool_money, bulletin_date, red_ball_1, 
+    red_ball_2, red_ball_3, red_ball_4, red_ball_5, red_ball_6, blue_ball_1, blue_ball_2, insert_date,
+    content
+    from ssq_history
+    where code = #{code,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select code, game_code, game_name, sales, week, pool_money, bulletin_date, red_ball_1, 
+    red_ball_2, red_ball_3, red_ball_4, red_ball_5, red_ball_6, blue_ball_1, blue_ball_2, insert_date,
+    content
+    from ssq_history
+    order by code desc
+  </select>
+</mapper>

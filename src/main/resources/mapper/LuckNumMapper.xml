@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.lottery.mapper.LuckNumMapper">
+  <resultMap id="BaseResultMap" type="io.lottery.entity.LuckNum">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="luck_num" jdbcType="CHAR" property="luckNum" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from luck_num
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="io.lottery.entity.LuckNum">
+    insert into luck_num (id, num, luck_num
+      )
+    values (#{id,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, #{luckNum,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertBatch" parameterType="io.lottery.entity.LuckNum">
+    insert into luck_num (num, luck_num
+    )
+    values
+        <foreach collection="list" item="item" separator=",">
+          (#{item.num,jdbcType=INTEGER}, #{item.luckNum,jdbcType=CHAR}
+          )
+        </foreach>
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="io.lottery.entity.LuckNum">
+    update luck_num
+    set num = #{num,jdbcType=INTEGER},
+      luck_num = #{luckNum,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, num, luck_num
+    from luck_num
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, num, luck_num
+    from luck_num
+  </select>
+</mapper>

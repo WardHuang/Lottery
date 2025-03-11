@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.lottery.mapper.Kl8HistoryMapper">
+  <resultMap id="BaseResultMap" type="io.lottery.entity.Kl8HistoryEntity">
+    <id column="code" jdbcType="CHAR" property="code" />
+    <result column="game_code" jdbcType="CHAR" property="gameCode" />
+    <result column="game_name" jdbcType="VARCHAR" property="gameName" />
+    <result column="red_ball_1" jdbcType="INTEGER" property="redBall1" />
+    <result column="red_ball_2" jdbcType="INTEGER" property="redBall2" />
+    <result column="red_ball_3" jdbcType="INTEGER" property="redBall3" />
+    <result column="red_ball_4" jdbcType="INTEGER" property="redBall4" />
+    <result column="red_ball_5" jdbcType="INTEGER" property="redBall5" />
+    <result column="red_ball_6" jdbcType="INTEGER" property="redBall6" />
+    <result column="red_ball_7" jdbcType="INTEGER" property="redBall7" />
+    <result column="red_ball_8" jdbcType="INTEGER" property="redBall8" />
+    <result column="red_ball_9" jdbcType="INTEGER" property="redBall9" />
+    <result column="red_ball_10" jdbcType="INTEGER" property="redBall10" />
+    <result column="red_ball_11" jdbcType="INTEGER" property="redBall11" />
+    <result column="red_ball_12" jdbcType="INTEGER" property="redBall12" />
+    <result column="red_ball_13" jdbcType="INTEGER" property="redBall13" />
+    <result column="red_ball_14" jdbcType="INTEGER" property="redBall14" />
+    <result column="red_ball_15" jdbcType="INTEGER" property="redBall15" />
+    <result column="red_ball_16" jdbcType="INTEGER" property="redBall16" />
+    <result column="red_ball_17" jdbcType="INTEGER" property="redBall17" />
+    <result column="red_ball_18" jdbcType="INTEGER" property="redBall18" />
+    <result column="red_ball_19" jdbcType="INTEGER" property="redBall19" />
+    <result column="red_ball_20" jdbcType="INTEGER" property="redBall20" />
+    <result column="sales" jdbcType="VARCHAR" property="sales" />
+    <result column="pool_money" jdbcType="VARCHAR" property="poolMoney" />
+    <result column="insert_date" jdbcType="TIMESTAMP" property="insertDate" />
+    <result column="bulletin_date" jdbcType="CHAR" property="bulletinDate" />
+    <result column="week" jdbcType="VARCHAR" property="week" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from kl8_history
+    where code = #{code,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="io.lottery.entity.Kl8HistoryEntity">
+    insert into kl8_history (code, game_code, game_name,
+    red_ball_1, red_ball_2, red_ball_3,
+    red_ball_4, red_ball_5, red_ball_6,
+    red_ball_7, red_ball_8, red_ball_9,
+    red_ball_10, red_ball_11, red_ball_12,
+    red_ball_13, red_ball_14, red_ball_15,
+    red_ball_16, red_ball_17, red_ball_18,
+    red_ball_19, red_ball_20, sales,
+    pool_money, insert_date, bulletin_date,
+    week, content)
+    values
+      (#{code,jdbcType=CHAR}, #{gameCode,jdbcType=CHAR}, #{gameName,jdbcType=VARCHAR},
+      #{redBall1,jdbcType=INTEGER}, #{redBall2,jdbcType=INTEGER}, #{redBall3,jdbcType=INTEGER},
+      #{redBall4,jdbcType=INTEGER}, #{redBall5,jdbcType=INTEGER}, #{redBall6,jdbcType=INTEGER},
+      #{redBall7,jdbcType=INTEGER}, #{redBall8,jdbcType=INTEGER}, #{redBall9,jdbcType=INTEGER},
+      #{redBall10,jdbcType=INTEGER}, #{redBall11,jdbcType=INTEGER}, #{redBall12,jdbcType=INTEGER},
+      #{redBall13,jdbcType=INTEGER}, #{redBall14,jdbcType=INTEGER}, #{redBall15,jdbcType=INTEGER},
+      #{redBall16,jdbcType=INTEGER}, #{redBall17,jdbcType=INTEGER}, #{redBall18,jdbcType=INTEGER},
+      #{redBall19,jdbcType=INTEGER}, #{redBall20,jdbcType=INTEGER}, #{sales,jdbcType=VARCHAR},
+      #{poolMoney,jdbcType=VARCHAR}, #{insertDate,jdbcType=TIMESTAMP}, #{bulletinDate,jdbcType=CHAR},
+      #{week,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertBatch" parameterType="io.lottery.entity.Kl8HistoryEntity">
+    insert into kl8_history (code, game_code, game_name, 
+      red_ball_1, red_ball_2, red_ball_3, 
+      red_ball_4, red_ball_5, red_ball_6, 
+      red_ball_7, red_ball_8, red_ball_9, 
+      red_ball_10, red_ball_11, red_ball_12, 
+      red_ball_13, red_ball_14, red_ball_15, 
+      red_ball_16, red_ball_17, red_ball_18, 
+      red_ball_19, red_ball_20, sales, 
+      pool_money, insert_date, bulletin_date, 
+      week, content)
+    values
+        <foreach collection="Kl8HistoryList" item="item" separator=",">
+          (#{item.code,jdbcType=CHAR}, #{item.gameCode,jdbcType=CHAR}, #{item.gameName,jdbcType=VARCHAR},
+          #{item.redBall1,jdbcType=INTEGER}, #{item.redBall2,jdbcType=INTEGER}, #{item.redBall3,jdbcType=INTEGER},
+          #{item.redBall4,jdbcType=INTEGER}, #{item.redBall5,jdbcType=INTEGER}, #{item.redBall6,jdbcType=INTEGER},
+          #{item.redBall7,jdbcType=INTEGER}, #{item.redBall8,jdbcType=INTEGER}, #{item.redBall9,jdbcType=INTEGER},
+          #{item.redBall10,jdbcType=INTEGER}, #{item.redBall11,jdbcType=INTEGER}, #{item.redBall12,jdbcType=INTEGER},
+          #{item.redBall13,jdbcType=INTEGER}, #{item.redBall14,jdbcType=INTEGER}, #{item.redBall15,jdbcType=INTEGER},
+          #{item.redBall16,jdbcType=INTEGER}, #{item.redBall17,jdbcType=INTEGER}, #{item.redBall18,jdbcType=INTEGER},
+          #{item.redBall19,jdbcType=INTEGER}, #{item.redBall20,jdbcType=INTEGER}, #{item.sales,jdbcType=VARCHAR},
+          #{item.poolMoney,jdbcType=VARCHAR}, #{item.insertDate,jdbcType=TIMESTAMP}, #{item.bulletinDate,jdbcType=CHAR},
+          #{item.week,jdbcType=VARCHAR}, #{item.content,jdbcType=VARCHAR})
+        </foreach>
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="io.lottery.entity.Kl8HistoryEntity">
+    update kl8_history
+    set game_code = #{gameCode,jdbcType=CHAR},
+      game_name = #{gameName,jdbcType=VARCHAR},
+      red_ball_1 = #{redBall1,jdbcType=INTEGER},
+      red_ball_2 = #{redBall2,jdbcType=INTEGER},
+      red_ball_3 = #{redBall3,jdbcType=INTEGER},
+      red_ball_4 = #{redBall4,jdbcType=INTEGER},
+      red_ball_5 = #{redBall5,jdbcType=INTEGER},
+      red_ball_6 = #{redBall6,jdbcType=INTEGER},
+      red_ball_7 = #{redBall7,jdbcType=INTEGER},
+      red_ball_8 = #{redBall8,jdbcType=INTEGER},
+      red_ball_9 = #{redBall9,jdbcType=INTEGER},
+      red_ball_10 = #{redBall10,jdbcType=INTEGER},
+      red_ball_11 = #{redBall11,jdbcType=INTEGER},
+      red_ball_12 = #{redBall12,jdbcType=INTEGER},
+      red_ball_13 = #{redBall13,jdbcType=INTEGER},
+      red_ball_14 = #{redBall14,jdbcType=INTEGER},
+      red_ball_15 = #{redBall15,jdbcType=INTEGER},
+      red_ball_16 = #{redBall16,jdbcType=INTEGER},
+      red_ball_17 = #{redBall17,jdbcType=INTEGER},
+      red_ball_18 = #{redBall18,jdbcType=INTEGER},
+      red_ball_19 = #{redBall19,jdbcType=INTEGER},
+      red_ball_20 = #{redBall20,jdbcType=INTEGER},
+      sales = #{sales,jdbcType=VARCHAR},
+      pool_money = #{poolMoney,jdbcType=VARCHAR},
+      insert_date = #{insertDate,jdbcType=TIMESTAMP},
+      bulletin_date = #{bulletinDate,jdbcType=CHAR},
+      week = #{week,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR}
+    where code = #{code,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select code, game_code, game_name, red_ball_1, red_ball_2, red_ball_3, red_ball_4, 
+    red_ball_5, red_ball_6, red_ball_7, red_ball_8, red_ball_9, red_ball_10, red_ball_11, 
+    red_ball_12, red_ball_13, red_ball_14, red_ball_15, red_ball_16, red_ball_17, red_ball_18, 
+    red_ball_19, red_ball_20, sales, pool_money, insert_date, bulletin_date, week, content
+    from kl8_history
+    where code = #{code,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select code, game_code, game_name, red_ball_1, red_ball_2, red_ball_3, red_ball_4, 
+    red_ball_5, red_ball_6, red_ball_7, red_ball_8, red_ball_9, red_ball_10, red_ball_11, 
+    red_ball_12, red_ball_13, red_ball_14, red_ball_15, red_ball_16, red_ball_17, red_ball_18, 
+    red_ball_19, red_ball_20, sales, pool_money, insert_date, bulletin_date, week, content
+    from kl8_history
+  </select>
+</mapper>
